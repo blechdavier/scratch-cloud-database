@@ -2,8 +2,11 @@ from scratchclient import ScratchSession
 from time import sleep, time
 
 def get_packet_chunks_from_file(path):
-    with open("store/{}.txt".format(path), "r") as f:
-        data = f.read()
+    try:
+        with open("store/{}.txt".format(path), "r") as f:
+            data = f.read()
+    except FileNotFoundError:
+        return ["50"] # Empty
     chunks = []
     while len(data) > 0:
         if len(data) > 255:
